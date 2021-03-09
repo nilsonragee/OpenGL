@@ -1,0 +1,7 @@
+*.tlog
+*.iobj
+*.obj
+*.pdb
+*.ipch
+.vs/
+build/

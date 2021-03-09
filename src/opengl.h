@@ -4,10 +4,10 @@
 #include <string>
 
 #define GLEW_STATIC
-#include "../libs/GLEW/include/glew.h"
-#include "../libs/GLFW/include/glfw3.h"
-#include "../libs/glm/include/glm.hpp"
-#include "../libs/glm/include/gtc/matrix_transform.hpp"
+#include "../libs/GLEW/glew.h"
+#include "../libs/GLFW/glfw3.h"
+#include "../libs/GLM/glm.hpp"
+#include "../libs/GLM/gtc/matrix_transform.hpp"
 
 // __debugbreak is for internal use in MSVC
 // and may not work in other environments.

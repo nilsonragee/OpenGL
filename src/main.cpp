@@ -78,9 +78,15 @@ void process_input(GLFWwindow* window) {
 	}
 }
 
+void glfw_error_callback(int error_code, const char* description) {
+	printf("GLFW ERROR: %s (%d)\n", description, error_code);
+}
+
 int main()
 {
 	GLFWwindow* window;
+
+	glfwSetErrorCallback(glfw_error_callback);
 
 	if (!glfwInit()) {
 		printf("ERROR: Failed to initialize GLFW!\n");
@@ -94,8 +100,8 @@ int main()
 
 	// Open a window and create its OpenGL context.
 	// Put  glfwGetPrimaryMonitor()  after the window's name to make it fullscreen.
-	// ..., "Genome Engine", glfwGetPrimaryMonitor(), NULL);
-	window = glfwCreateWindow(screen.width, screen.height, "Genome Engine", NULL, NULL);
+	// ... "name", glfwGetPrimaryMonitor(), NULL);
+	window = glfwCreateWindow(screen.width, screen.height, "Genome Engine Renewed", NULL, NULL);
 	if (!window) {
 		printf("ERROR: Failed to open GLFW window!\n");
 		exit(EXIT_FAILURE);
@@ -115,6 +121,8 @@ int main()
 	glfwSetCursorPos(window, mouse.x, mouse.y);
 
 	// Vertical sync (VSync).
+	// How many frames we will skip:
+	// 1 - will skip every 2nd frame.
 	glfwSwapInterval(1);
 
 	if (glewInit() != GLEW_OK)
@@ -123,7 +131,7 @@ int main()
 		exit(EXIT_FAILURE);
 	}
 
-	/* DEMO SCENE START*/
+	/* DEMO SCENE START */
 	const int vertices_amount = 4 * (3 + 3 + 2);
 	const int indices_amount = 2 * 3;
 
@@ -278,6 +286,7 @@ int main()
 		projection = glm::perspective(glm::radians(camera.fov), screen.aspect_ratio, NEAR_CLIP_PLANE_DISTANCE, FAR_CLIP_PLANE_DISTANCE);
 		view = glm::lookAt(camera.position, camera.position + camera.front, camera.up);
 
+		/* DEMO SCENE RENDER */
 		// --- Lighting ---
 		// Cube
 		glUseProgram(lighting_shader);
@@ -297,6 +306,7 @@ int main()
 
 		glBindVertexArray(light_object_vertex_array_object);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+		/* DEMO SCENE RENDER */
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
