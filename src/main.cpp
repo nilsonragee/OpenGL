@@ -90,6 +90,7 @@ int main()
 
 	if (!glfwInit()) {
 		printf("ERROR: Failed to initialize GLFW!\n");
+		ASSERT(false);
 		exit(EXIT_FAILURE);
 	}
 
@@ -194,6 +195,9 @@ int main()
 	unsigned int vertex_buffer_object;
 	glGenBuffers(1, &vertex_buffer_object);
 
+	//
+	// --- Cube ---
+	//
 	unsigned int object_vertex_array_object;
 	glGenVertexArrays(1, &object_vertex_array_object);
 	glBindVertexArray(object_vertex_array_object);
@@ -209,6 +213,9 @@ int main()
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
+	//
+	// --- Light cube ---
+	//
 	unsigned light_object_vertex_array_object;
 	glGenVertexArrays(1, &light_object_vertex_array_object);
 	glBindVertexArray(light_object_vertex_array_object);
@@ -253,7 +260,6 @@ int main()
 	glm::vec3 object_color(1.0f, 0.5f, 0.31f);
 	glm::vec3 light_color(1.0f, 1.0f, 1.0f);
 
-	// Need to put it there, and I'm not sure why...
 	glUseProgram(lighting_shader);
 
 	unsigned int view_position_location = glGetUniformLocation(lighting_shader, "view_position");
