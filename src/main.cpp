@@ -1,6 +1,10 @@
 #include <fstream>
 #include <sstream>
 
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
+
 #include "opengl.h"
 
 //
@@ -10,6 +14,8 @@ Camera camera;
 Mouse mouse;
 Frame_Time frame_time;
 Screen screen;
+
+bool imgui_show_demo_window = true;
 
 //
 // --- Callbacks ---
@@ -30,20 +36,23 @@ void mouse_callback(GLFWwindow* window, double new_mouse_x, double new_mouse_y) 
 	offset_x *= mouse.sensitivity;
 	offset_y *= mouse.sensitivity;
 
-	camera.yaw += offset_x;
-	camera.pitch += offset_y;
+	// In 'Cursor mode' we don't move camera.
+	if (!mouse.cursor_mode) {
+		camera.yaw += offset_x;
+		camera.pitch += offset_y;
 
-	if (camera.pitch > PITCH_MAX_ANGLE)
-		camera.pitch = PITCH_MAX_ANGLE;
-	if (camera.pitch < -PITCH_MAX_ANGLE)
-		camera.pitch = -PITCH_MAX_ANGLE;
+		if (camera.pitch > PITCH_MAX_ANGLE)
+			camera.pitch = PITCH_MAX_ANGLE;
+		if (camera.pitch < -PITCH_MAX_ANGLE)
+			camera.pitch = -PITCH_MAX_ANGLE;
 
-	glm::vec3 direction;
-	direction.x = cos(glm::radians(camera.yaw)) * cos(glm::radians(camera.pitch));
-	direction.y = sin(glm::radians(camera.pitch));
-	direction.z = sin(glm::radians(camera.yaw)) * cos(glm::radians(camera.pitch));
+		glm::vec3 direction;
+		direction.x = cos(glm::radians(camera.yaw)) * cos(glm::radians(camera.pitch));
+		direction.y = sin(glm::radians(camera.pitch));
+		direction.z = sin(glm::radians(camera.yaw)) * cos(glm::radians(camera.pitch));
 
-	camera.front = glm::normalize(direction);
+		camera.front = glm::normalize(direction);
+	}
 }
 
 void scroll_callback(GLFWwindow* window, double offset_x, double offset_y) {
@@ -57,10 +66,11 @@ void process_input(GLFWwindow* window) {
 	glm::vec3 camera_right = glm::normalize(cross_front_up);
 
 	//      if(glfwGetKey(window, GLFW_KEY)) == GLFW_PRESS)
-	//  or: if(glfwGetKey(window, GLFW_KEY)) == 1)
-	//  or: if(glfwGetKey(window, GLFW_KEY)) == true)
 	//  or: if(glfwGetKey(window, GLFW_KEY))
-
+	//
+	// NOTE: It doesn't work like GLFW key press callback function
+	// where there is additional GLFW_REPEAT and GLFW_PRESS is treated
+	// as a single press. There, GLFW_PRESS updates every frame.
 	if (glfwGetKey(window, GLFW_KEY_W)) {
 		camera.position += camera.front * camera_speed;
 	}
@@ -75,6 +85,26 @@ void process_input(GLFWwindow* window) {
 
 	if (glfwGetKey(window, GLFW_KEY_D)) {
 		camera.position += camera_right * camera_speed;
+	}
+}
+
+void single_press_key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	if (key == GLFW_KEY_GRAVE_ACCENT && action == GLFW_PRESS) {
+		imgui_show_demo_window = !imgui_show_demo_window;
+		printf("[%f] - ImGui mode: %s\n", frame_time.current, (imgui_show_demo_window) ? "SHOW" : "HIDE");
+	}
+
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+		mouse.cursor_mode = !mouse.cursor_mode;
+
+		if (mouse.cursor_mode) {
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+		else {
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
+
+		printf("[%f] - Cursor mode: %s\n", frame_time.current, (mouse.cursor_mode) ? "ON" : "OFF");
 	}
 }
 
@@ -116,6 +146,10 @@ int main()
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
+	// Callback function for processing single press.
+	// Keys which are being listened continuously are
+	// in process_input().
+	glfwSetKeyCallback(window, single_press_key_callback);
 
 	// Tell GLFW to capture mouse movements and don't draw the cursor.
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -137,6 +171,7 @@ int main()
 	const int indices_amount = 2 * 3;
 
 	float vertices[] = {
+		// Position           Normal
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -255,7 +290,7 @@ int main()
 	view = glm::lookAt(camera.position, camera.position + camera.front, camera.up);
 
 	//
-	// --- Colors. ---
+	// --- Colors ---
 	//
 	glm::vec3 object_color(1.0f, 0.5f, 0.31f);
 	glm::vec3 light_color(1.0f, 1.0f, 1.0f);
@@ -277,6 +312,25 @@ int main()
 	// Move camera.
 	camera.position = glm::vec3(0.0f, 0.0f, 3.0f);
 	/* DEMO SCENE END */
+
+	//
+	// --- ImGui ---
+	//
+	IMGUI_CHECKVERSION();
+	auto imgui_context = ImGui::CreateContext();
+	ImGuiIO &imgui_io = ImGui::GetIO();
+
+	// Disable windows state saving for now.
+	imgui_io.IniFilename = NULL;
+	imgui_io.WantSaveIniSettings = false;
+	
+	ImGui::StyleColorsDark();
+
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	// Temp.
+	const char* glsl_version = "#version 330";
+	ImGui_ImplOpenGL3_Init(glsl_version);
+	ImGui::SetCurrentContext(imgui_context);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -314,11 +368,28 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		/* DEMO SCENE RENDER */
 
+		// 
+		// --- ImGui Render ---
+		//
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
+		if (imgui_show_demo_window) {
+			ImGui::ShowDemoWindow(&imgui_show_demo_window);
+		}
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		glFlush();
 	}
 
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 
 	glDeleteProgram(lighting_shader);
 	glDeleteProgram(light_object_shader);

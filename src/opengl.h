@@ -40,6 +40,7 @@ struct Mouse {
 	float x = 0;
 	float y = 0;
 	float sensitivity = 0.1f;
+	bool cursor_mode = false;
 };
 
 struct Frame_Time {
