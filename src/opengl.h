@@ -72,6 +72,11 @@ struct Index_Buffer {
 	const unsigned int* data;
 };
 
+struct GPU_Info {
+	const char* vendor;
+	const char* renderer;
+};
+
 const float NEAR_CLIP_PLANE_DISTANCE = 0.01f;
 const float FAR_CLIP_PLANE_DISTANCE = 200.0f;
 const float PITCH_MAX_ANGLE = 89.0f;

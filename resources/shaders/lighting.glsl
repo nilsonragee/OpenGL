@@ -19,7 +19,7 @@ void main()
     gl_Position = projection * view * model * vec4(FragPos, 1.0);
 }
 
-#shader fragment 
+#shader fragment
 #version 330 core
 out vec4 FragColor;
 
