@@ -18,6 +18,7 @@ GPU_Info gpu_info;
 
 bool imgui_draw_edit_window = true;
 bool imgui_draw_demo_window = false;
+bool freeze_light_change = false;
 
 //
 // --- Callbacks ---
@@ -307,18 +308,31 @@ int main()
 	//
 	// --- Colors ---
 	//
-	glm::vec3 object_color(1.0f, 0.5f, 0.31f);
 	glm::vec3 light_color(1.0f, 1.0f, 1.0f);
 
+	glm::vec3 cube_ambient = light_color;
+	glm::vec3 cube_diffuse = light_color;
+	glm::vec3 cube_specular = glm::vec3(0.5f, 0.5f, 0.5f);
+	float cube_shininess = 32.0f;
+
+	unsigned int lighting_material_ambient_location = glGetUniformLocation(lighting_shader, "material.ambient");
+	unsigned int lighting_material_diffuse_location = glGetUniformLocation(lighting_shader, "material.diffuse");
+	unsigned int lighting_material_specular_location = glGetUniformLocation(lighting_shader, "material.specular");
+	unsigned int lighting_material_shininess_location = glGetUniformLocation(lighting_shader, "material.shininess");
+
+	glm::vec3 cube_ambient_strength = glm::vec3(0.2f);
+	glm::vec3 cube_diffuse_strength = glm::vec3(0.5f);
+	glm::vec3 cube_specular_strength = glm::vec3(1.0f);
+
+	unsigned int lighting_light_ambient_location = glGetUniformLocation(lighting_shader, "light.ambient");
+	unsigned int lighting_light_diffuse_location = glGetUniformLocation(lighting_shader, "light.diffuse");
+	unsigned int lighting_light_specular_location = glGetUniformLocation(lighting_shader, "light.specular");
+
 	unsigned int view_position_location = glGetUniformLocation(lighting_shader, "view_position");
-	unsigned int light_cube_position_location = glGetUniformLocation(lighting_shader, "light_position");
-	unsigned int object_light_color_location = glGetUniformLocation(lighting_shader, "light_color");
-	unsigned int object_color_location = glGetUniformLocation(lighting_shader, "object_color");
+	unsigned int light_cube_position_location = glGetUniformLocation(lighting_shader, "light.position");
 
 	unsigned int light_cube_color_location = glGetUniformLocation(light_object_shader, "light_color");
 
-	// Move camera.
-	camera.position = glm::vec3(3.5f, 2.5f, 4.0f);
 	/* DEMO SCENE END */
 
 	//
@@ -347,6 +361,9 @@ int main()
 
 	glm::vec4 clear_color = glm::vec4(0.1f, 0.1f, 0.1f, 1.0f);
 
+	// Move camera.
+	camera.position = glm::vec3(0.0f, 0.0f, 3.0f);
+
 	while (!glfwWindowShouldClose(window))
 	{
 		frame_time.current = glfwGetTime();
@@ -358,9 +375,9 @@ int main()
 
 		process_input(window);
 
-		light_cube_position.x = sin(glfwGetTime()) * 2.0f;
-		light_cube_position.y = 0.0f;
-		light_cube_position.z = cos(glfwGetTime()) * 2.0f;
+		// light_cube_position.x = sin(glfwGetTime()) * 2.0f;
+		// light_cube_position.y = 0.0f;
+		// light_cube_position.z = cos(glfwGetTime()) * 2.0f;
 
 		// light_object_model = glm::translate(light_object_model, light_cube_position);
 
@@ -371,10 +388,28 @@ int main()
 		// --- Lighting ---
 		// Cube
 		glUseProgram(lighting_shader);
+
+		if (!freeze_light_change) {
+			light_color.r = sin(frame_time.current * 2.0f);
+			light_color.g = sin(frame_time.current * 0.7f);
+			light_color.b = sin(frame_time.current * 1.3f);
+		}
+
+		cube_diffuse = light_color * cube_diffuse_strength;
+		cube_ambient = light_color * cube_ambient_strength;
+
+		glUniform3fv(lighting_material_ambient_location, 1, &cube_ambient[0]);
+		glUniform3fv(lighting_material_diffuse_location, 1, &cube_diffuse[0]);
+		glUniform3fv(lighting_material_specular_location, 1, &cube_specular[0]);
+		glUniform1f(lighting_material_shininess_location, cube_shininess);
+
+		glUniform3fv(lighting_light_ambient_location, 1, &cube_ambient_strength[0]);
+		glUniform3fv(lighting_light_diffuse_location, 1, &cube_diffuse_strength[0]);
+		glUniform3fv(lighting_light_specular_location, 1, &cube_specular_strength[0]);
+
 		glUniform3fv(view_position_location, 1, &camera.position[0]);
 		glUniform3fv(light_cube_position_location, 1, &light_cube_position[0]);
-		glUniform3fv(object_light_color_location, 1, &light_color[0]);
-		glUniform3fv(object_color_location, 1, &object_color[0]);
+
 		glUniformMatrix4fv(lighting_projection_location, 1, GL_FALSE, &projection[0][0]);
 		glUniformMatrix4fv(lighting_view_location, 1, GL_FALSE, &view[0][0]);
 		glUniformMatrix4fv(lighting_model_location, 1, GL_FALSE, &lighting_model[0][0]);
@@ -409,13 +444,19 @@ int main()
 		}
 
 		if (imgui_draw_edit_window) {
-			ImGui::Begin("Edit");
+			ImGui::Begin("Scene");
 			ImGui::Checkbox("Demo Window", &imgui_draw_demo_window);
+			ImGui::Checkbox("Freeze light change", &freeze_light_change);
 			ImGui::ColorEdit3("Clear color", &clear_color[0]);
-			ImGui::ColorEdit3("Cube color", &object_color[0]);
 			ImGui::ColorEdit3("Light cube color", &light_color[0]);
 			ImGui::InputFloat3("Camera XYZ", &camera.position[0]);
-			ImGui::InputFloat3("Light cube XYZ", &light_cube_position[0]);
+			ImGui::InputFloat3("Cube ambient", &cube_ambient[0]);
+			ImGui::InputFloat3("Cube diffuse", &cube_diffuse[0]);
+			ImGui::InputFloat3("Cube specular", &cube_specular[0]);
+			ImGui::InputFloat3("Ambient strength", &cube_ambient_strength[0]);
+			ImGui::InputFloat3("Diffuse strength", &cube_diffuse_strength[0]);
+			ImGui::InputFloat3("Specular strength", &cube_specular_strength[0]);
+			ImGui::InputFloat("Cube shininess", &cube_shininess);
 			ImGui::Text("GPU Vendor: %s", gpu_info.vendor);
 			ImGui::Text("GPU Renderer: %s", gpu_info.renderer);
 			ImGui::Text("Frametime: %.3f ms/frame (%.1f FPS)", 1000.0f / imgui_io.Framerate, imgui_io.Framerate);
