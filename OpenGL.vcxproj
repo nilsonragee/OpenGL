@@ -173,8 +173,11 @@
     <ClCompile Include="libs\imgui\imgui_tables.cpp" />
     <ClCompile Include="libs\imgui\imgui_widgets.cpp" />
     <ClCompile Include="libs\stb_image.cpp" />
+    <ClCompile Include="src\ge_exception.cpp" />
+    <ClCompile Include="src\ge_timer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\opengl.cpp" />
+    <ClCompile Include="src\WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\imgui\imconfig.h" />
@@ -186,11 +189,69 @@
     <ClInclude Include="libs\imgui\imstb_textedit.h" />
     <ClInclude Include="libs\imgui\imstb_truetype.h" />
     <ClInclude Include="libs\stb_image.h" />
+    <ClInclude Include="src\Engine.h" />
+    <ClInclude Include="src\EngineEnum.h" />
+    <ClInclude Include="src\ge_archivefile.h" />
+    <ClInclude Include="src\ge_archivemanager.h" />
+    <ClInclude Include="src\ge_arraybase.h" />
+    <ClInclude Include="src\ge_audiochannel.h" />
+    <ClInclude Include="src\ge_audiochannelgroup.h" />
+    <ClInclude Include="src\ge_audiomodule.h" />
+    <ClInclude Include="src\ge_clock.h" />
+    <ClInclude Include="src\ge_collisionshape.h" />
+    <ClInclude Include="src\ge_collisionshapebase_ps.h" />
+    <ClInclude Include="src\ge_commandline.h" />
+    <ClInclude Include="src\ge_datetime.h" />
+    <ClInclude Include="src\ge_def.h" />
+    <ClInclude Include="src\ge_dynamicentity.h" />
+    <ClInclude Include="src\ge_entity.h" />
+    <ClInclude Include="src\ge_error.h" />
+    <ClInclude Include="src\ge_erroradmin.h" />
+    <ClInclude Include="src\ge_exception.h" />
+    <ClInclude Include="src\ge_file.h" />
+    <ClInclude Include="src\ge_filesystem.h" />
+    <ClInclude Include="src\ge_globals.h" />
+    <ClInclude Include="src\ge_guid.h" />
+    <ClInclude Include="src\ge_iostream.h" />
+    <ClInclude Include="src\ge_istream.h" />
+    <ClInclude Include="src\GE_Math.h" />
+    <ClInclude Include="src\ge_memheap.h" />
+    <ClInclude Include="src\ge_memoryadmin.h" />
+    <ClInclude Include="src\ge_memorystream.h" />
+    <ClInclude Include="src\ge_message.h" />
+    <ClInclude Include="src\ge_messageadmin.h" />
+    <ClInclude Include="src\ge_motionkeyframerdata.h" />
+    <ClInclude Include="src\ge_node.h" />
+    <ClInclude Include="src\ge_objectinspectordlg.h" />
+    <ClInclude Include="src\ge_ostream.h" />
+    <ClInclude Include="src\ge_postream.h" />
+    <ClInclude Include="src\ge_random.h" />
+    <ClInclude Include="src\ge_scriptadminbase.h" />
+    <ClInclude Include="src\ge_spatialentity.h" />
+    <ClInclude Include="src\ge_spyadmin.h" />
+    <ClInclude Include="src\ge_string.h" />
+    <ClInclude Include="src\ge_templateentity.h" />
+    <ClInclude Include="src\ge_templateentityproxy.h" />
+    <ClInclude Include="src\ge_threadobjectrefbase.h" />
+    <ClInclude Include="src\ge_timer.h" />
+    <ClInclude Include="src\ge_types.h" />
+    <ClInclude Include="src\ge_unicodestring.h" />
+    <ClInclude Include="src\ge_validatememory.h" />
     <ClInclude Include="src\opengl.h" />
+    <ClInclude Include="src\resource.h" />
+    <ClInclude Include="src\SharedBase.h" />
+    <ClInclude Include="src\SharedBaseEnum.h" />
+    <ClInclude Include="src\WindowsMessageMap.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\lighting.glsl" />
     <None Include="resources\shaders\light_object.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\Engine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\GenomeEngineIcon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

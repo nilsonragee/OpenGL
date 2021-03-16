@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="libs\imgui\imgui.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_demo.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_draw.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_impl_glfw.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_impl_opengl3.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_tables.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imgui\imgui_widgets.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\opengl.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\stb_image.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ge_exception.cpp">
+      <Filter>GenomeBase</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ge_timer.cpp">
+      <Filter>GenomeBase</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowsMessageMap.cpp">
+      <Filter>GenomeBase</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="libs\imgui\imconfig.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imgui.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imgui_impl_glfw.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imgui_impl_opengl3.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imgui_internal.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imstb_rectpack.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imstb_textedit.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui\imstb_truetype.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\opengl.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\stb_image.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineEnum.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_archivefile.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_archivemanager.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_arraybase.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_audiochannel.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_audiochannelgroup.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_audiomodule.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_clock.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_collisionshape.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_collisionshapebase_ps.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_commandline.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_datetime.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_def.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_dynamicentity.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_entity.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_error.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_erroradmin.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_exception.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_file.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_filesystem.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_globals.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_guid.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_iostream.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_istream.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GE_Math.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_memheap.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_memoryadmin.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_memorystream.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_message.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_messageadmin.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_motionkeyframerdata.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_node.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_objectinspectordlg.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_ostream.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_postream.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_random.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_scriptadminbase.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_spatialentity.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_spyadmin.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_string.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_templateentity.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_templateentityproxy.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_threadobjectrefbase.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_timer.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_types.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_unicodestring.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ge_validatememory.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SharedBase.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SharedBaseEnum.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowsMessageMap.h">
+      <Filter>GenomeBase</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\shaders\light_object.glsl">
+      <Filter>Engine</Filter>
+    </None>
+    <None Include="resources\shaders\lighting.glsl">
+      <Filter>Engine</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{b9fd5354-c6a2-40c1-905d-4c6cdf6500a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GenomeBase">
+      <UniqueIdentifier>{e8d8fcb4-7efc-4893-9f3d-d4ec44a08343}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\Engine.rc">
+      <Filter>GenomeBase</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\GenomeEngineIcon.ico">
+      <Filter>GenomeBase</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
